@@ -144,6 +144,6 @@ Works over **Thunderbolt 5** (RDMA, fastest), **Ethernet**, or **Wi-Fi**. Apple 
 
 ## About
 
-mac-ssi is built by [**openIE**](https://openie.dev). The app is distributed as a signed `.dmg`; this repository hosts the website, documentation, examples, and Homebrew cask. The engine source is maintained privately.
+mac-ssi is built by [**openIE**](https://openie.dev). The app is distributed as a signed `.dmg`; this repository hosts the website, documentation, examples, and Homebrew cask. The engine source is maintained privately. Maintainers: see [RELEASING.md](RELEASING.md).
 
 **License:** [Apache-2.0](LICENSE) (documentation & examples). · **Contact:** david@openie.dev
