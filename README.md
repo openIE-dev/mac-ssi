@@ -4,13 +4,13 @@
 
 # mac-ssi
 
-### Turn the Macs you already own into one giant computer.
+### Turn the Macs you already own into one computer.
 
-**Pool the CPU, GPU, Neural Engine, RAM, and storage of every Mac on your desk over Thunderbolt 5 — and run AI models too big for any single machine, behind one OpenAI-compatible endpoint.**
+**mac-ssi is a Single System Image for Apple Silicon: it fuses the CPU, GPU, Neural Engine, memory, and storage of every Mac you own into one compute fabric — over Thunderbolt 5, Ethernet, or Wi-Fi. Run any workload across all of them, unchanged.**
 
 [![Download](https://img.shields.io/badge/Download-.dmg-000?style=for-the-badge&logo=apple)](https://github.com/openIE-dev/mac-ssi/releases/latest)
 [![Homebrew](https://img.shields.io/badge/brew_install_--cask-mac--ssi-FBB040?style=for-the-badge&logo=homebrew&logoColor=white)](#install)
-[![Docs](https://img.shields.io/badge/Docs-mac--ssi.dev-1e90ff?style=for-the-badge)](https://openie-dev.github.io/mac-ssi/)
+[![Docs](https://img.shields.io/badge/Docs-mac--ssi-1e90ff?style=for-the-badge)](https://openie-dev.github.io/mac-ssi/)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue?style=for-the-badge)](LICENSE)
 
 [**Website**](https://openie-dev.github.io/mac-ssi/) · [**Quickstart**](#quickstart) · [**Examples**](examples/) · [**API**](#api) · [**How it works**](#how-it-works)
@@ -19,68 +19,72 @@
 
 ---
 
-## Why
+## What it is
 
-A single Mac Studio caps out at 512 GB. A frontier-scale model at 4-bit can need far more. Today your only options are the cloud or a rack of NVIDIA GPUs.
+You probably own more Macs than you use at once. A Studio under the desk, a MacBook in the bag, an old iMac on the shelf — each idle most of the time, each capped by its own RAM and core count.
 
-**mac-ssi** makes a *pile of Macs* present as a single machine. Aggregate RAM spans every node; GPU work dispatches to whichever Mac has idle cores; a process appears as one PID. The cluster **is** the computer — no distributed-programming model, no code changes.
+**mac-ssi makes them act as one machine.** Memory allocations span every node's RAM; compute dispatches to whichever Mac has idle cores, GPU, or Neural Engine; a process appears as a single PID; one virtual filesystem spans all their disks. No distributed-programming model, no code changes — **unmodified software just sees a bigger computer.**
 
-> Reference cluster: 4 Macs → **608 GB unified RAM**, 80 CPU cores, ~200 GPU cores, 80 ANE cores — presented as one.
+> Get more out of the hardware you already own. The cluster **is** the computer.
+
+> Reference pool: 4 Macs → **608 GB unified RAM**, 80 CPU cores, ~200 GPU cores, 80 ANE cores, presented as one.
 
 ---
 
-## The flagship: run a model no single Mac can hold
+## Run anything across the pool
 
 ```bash
-# Serve a frontier model, pipeline-sharded across every Mac, as one OpenAI endpoint
-ssi serve nemotron-ultra-550b --port 8080
+# Run any binary on the best node — scheduled by free CPU/GPU/ANE/RAM, locality, or energy
+ssi run ./render_batch --gpu --min-mem 65536
+
+# Optimize placement for power
+ssi run --mode energy ./nightly_job
+
+# See every process across every Mac, as one list
+ssi ps
 ```
+
+Your job sees **aggregate** resources — more RAM than any one Mac has, more cores, more GPU. Rendering, simulation, builds, data processing, batch compute, training — anything that's bottlenecked by a single machine gets the whole pool.
+
+---
+
+## One workload example: large-model inference
+
+Distributed AI inference is one thing the fabric makes easy — a model too big for any single Mac runs across the pool behind one OpenAI-compatible endpoint:
 
 ```bash
-# It's just the OpenAI API — point any client at it
-curl http://localhost:8080/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -d '{"messages":[{"role":"user","content":"Explain Thunderbolt RDMA in one sentence."}]}'
+ssi serve some-large-model --port 8080      # sharded across the cluster's GPU memory
+curl http://localhost:8080/v1/chat/completions -d '{"messages":[...]}'   # plain OpenAI API
 ```
 
-```python
-from openai import OpenAI
-client = OpenAI(base_url="http://localhost:8080/v1", api_key="local")
-print(client.chat.completions.create(
-    model="ultra-550b",
-    messages=[{"role": "user", "content": "What can a cluster of Macs do that one can't?"}],
-).choices[0].message.content)
-```
-
-**Proven on real hardware:** a 120B model distributed across 3 Macs serving at **~22 tok/s** through one endpoint; pipeline built to run **400–600B-class** models on pooled cluster RAM. See [examples/](examples/).
+It's *an* application of the fabric, not the point of it. See [`examples/`](examples/) for inference, batch compute, and big-memory jobs.
 
 ---
 
 ## Quickstart
 
 ```bash
-# 1. Install on every Mac you want in the cluster
+# 1. Install on every Mac you want in the pool
 brew install --cask openie-dev/mac-ssi/mac-ssi
 
-# 2. Cable the Macs together with Thunderbolt 5 (direct cables, no docks)
-
+# 2. Connect them — Thunderbolt 5 (fastest), Ethernet, or just the same Wi-Fi
 # 3. Start the agent on each node — they auto-discover each other (mDNS + SWIM)
 ssi up
 
-# 4. See your cluster
+# 4. See your pool as one machine
 ssi status
 ```
 
 ```text
-  mac-ssi cluster — 4 nodes, 608 GB unified
-  ───────────────────────────────────────────────
-  NODE          CHIP         RAM     GPU   STATUS
-  studio-01     M3 Ultra     256 GB  ●●●   ready
-  studio-02     M4 Max        36 GB  ●     ready
-  mbp-01        M4 Max       128 GB  ●●    ready
-  mbp-02        M5 Max       128 GB  ●●    ready
-  ───────────────────────────────────────────────
-  aggregate: 608 GB · 80 cores · TB5 fabric · 0.06 J/token
+  mac-ssi — 4 nodes, 608 GB unified · TB5 + Ethernet fabric
+  ───────────────────────────────────────────────────────
+  NODE          CHIP         RAM     GPU   LINK    STATUS
+  studio-01     M3 Ultra     256 GB  ●●●   TB5     ready
+  studio-02     M4 Max        36 GB  ●     TB5     ready
+  mbp-01        M4 Max       128 GB  ●●    10GbE   ready
+  imac-01       M3            24 GB  ●     Wi-Fi   ready
+  ───────────────────────────────────────────────────────
+  aggregate: 608 GB · 80 cores · ready for any workload
 ```
 
 ---
@@ -89,13 +93,13 @@ ssi status
 
 | Command | What it does |
 |---|---|
-| `ssi serve <model>` | Distributed inference of a model bigger than one node → one OpenAI endpoint |
-| `ssi run ./workload` | Run **any** binary on the best node (or across the cluster), scheduled by GPU/ANE/RAM/energy |
-| `ssi status` · `nodes` · `resources` · `topology` | See the cluster as one machine |
+| `ssi run ./workload` | Run **any** binary on the best node (or across the pool), scheduled by CPU/GPU/ANE/RAM/locality/energy |
+| `ssi ps` · `kill` | One process table across every Mac |
+| `ssi memory` | Distributed shared memory — allocate across the pool's combined RAM |
 | `ssi gpu` · `ane` | Pool and dispatch to GPU / Neural Engine across nodes |
-| `ssi memory` | Distributed shared memory across cluster RAM |
 | `ssi fs` | One virtual filesystem spanning every node's storage |
-| `ssi ps` · `kill` | Manage processes cluster-wide |
+| `ssi status` · `nodes` · `resources` · `topology` | See the pool — and the fabric links — as one machine |
+| `ssi serve <model>` | (example workload) distributed inference → one OpenAI endpoint |
 
 Full reference: **[API & CLI docs →](https://openie-dev.github.io/mac-ssi/#api)**
 
@@ -103,11 +107,17 @@ Full reference: **[API & CLI docs →](https://openie-dev.github.io/mac-ssi/#api
 
 ## How it works
 
-The hard part is the **250× bandwidth gap** between Apple's on-die UltraFusion (2.5 TB/s) and the external Thunderbolt 5 link (10 GB/s). mac-ssi closes it with predictive page prefetch, write coalescing, tiered memory, locality-aware scheduling, RDMA buffer pooling, LZ4 page compression, and MOESI coherence — cutting effective cross-node latency **10–100×** for real workloads.
+Making separate machines act as one is bound by the **interconnect**. Apple's on-die UltraFusion runs at 2.5 TB/s; the link *between* Macs is far slower — 10 GB/s on Thunderbolt 5, less on Ethernet or Wi-Fi. mac-ssi closes that gap in software so the pool behaves like one computer:
 
-For inference specifically, the model is **pipeline-sharded**: each node holds a slice of the layers in its GPU memory, and per-token activations relay node→node over the Thunderbolt fabric. A model that fits in *no* single Mac runs across *all* of them.
+- **Predictive page prefetch** (incl. pointer-chase detection) and **write coalescing**
+- **Tiered memory** classification — hot pages local, cold pages remote/streamed
+- **Locality-aware scheduling** — run work where its data already lives
+- **RDMA buffer pooling** and **LZ4 page compression** over the wire
+- **Per-region consistency modes** + **MOESI cache coherence** for shared memory
 
-<div align="center"><img src="docs/assets/architecture.svg" alt="architecture" width="760" /></div>
+Together these cut effective cross-node latency **10–100×** for real workloads — and the system **adapts to your link**: full RDMA on Thunderbolt 5, plain sockets on Ethernet or Wi-Fi, same single-machine view either way.
+
+<div align="center"><img src="docs/assets/architecture.svg" alt="single compute fabric" width="760" /></div>
 
 ---
 
@@ -120,15 +130,15 @@ brew install --cask openie-dev/mac-ssi/mac-ssi
 
 **Direct download:** grab the latest `.dmg` from [**Releases**](https://github.com/openIE-dev/mac-ssi/releases/latest), open it, drag **mac-ssi** to Applications.
 
-Requirements: Apple Silicon, macOS 26.2+ (for Thunderbolt 5 RDMA; runs over Thunderbolt-IP on earlier), Thunderbolt 5 cables for multi-node.
+Works over **Thunderbolt 5** (RDMA, fastest), **Ethernet**, or **Wi-Fi**. Apple Silicon; macOS 26.2+ unlocks TB5 RDMA (earlier releases run over IP).
 
 ---
 
 ## Examples
 
-- [`examples/serve-openai.md`](examples/serve-openai.md) — serve a model and call it from cURL / Python / the OpenAI SDK
-- [`examples/run-anywhere.md`](examples/run-anywhere.md) — run training/compute on whichever Mac is best
-- [`examples/use-cases.md`](examples/use-cases.md) — local frontier inference, batch jobs, on-prem private AI
+- [`examples/run-anywhere.md`](examples/run-anywhere.md) — run any workload on the best Mac, or across the whole pool
+- [`examples/use-cases.md`](examples/use-cases.md) — big-memory jobs, burst compute, render/sim farms, private on-prem AI
+- [`examples/serve-openai.md`](examples/serve-openai.md) — the inference example: serve a large model as an OpenAI endpoint
 
 ---
 

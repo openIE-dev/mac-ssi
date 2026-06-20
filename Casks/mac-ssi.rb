@@ -15,7 +15,7 @@ cask "mac-ssi" do
   url "https://github.com/openIE-dev/mac-ssi/releases/download/v#{version}/mac-ssi-#{version}.dmg",
       verified: "github.com/openIE-dev/mac-ssi/"
   name "mac-ssi"
-  desc "Single System Image for Apple Silicon — pool many Macs into one computer"
+  desc "Single System Image for Apple Silicon — pool many Macs into one compute fabric"
   homepage "https://openie-dev.github.io/mac-ssi/"
 
   depends_on macos: ">= :sequoia"
@@ -31,8 +31,9 @@ cask "mac-ssi" do
   ]
 
   caveats <<~EOS
-    mac-ssi pools multiple Apple Silicon Macs over Thunderbolt 5.
-    Cable your Macs with direct TB5 cables (no docks), then run:
+    mac-ssi pools multiple Apple Silicon Macs into one compute fabric
+    over Thunderbolt 5, Ethernet, or Wi-Fi.
+    Connect your Macs (TB5 fastest, or Ethernet / Wi-Fi), then run:
       ssi up        # start the node agent (auto-discovers peers)
       ssi status    # see the cluster
     Docs: https://openie-dev.github.io/mac-ssi/

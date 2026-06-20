@@ -1,31 +1,39 @@
 # Use cases
 
-### 🧠 Local frontier inference
-Run a 400–600B-class model on the Macs you already own — no cloud, no NVIDIA rack.
-`ssi serve` shards it across cluster RAM and gives you one OpenAI endpoint your
-whole team can hit on the LAN.
+mac-ssi pools your Macs into one compute fabric. Anything bottlenecked by a
+single machine — RAM, cores, GPU, or just an idle box doing nothing — gets the
+whole pool. AI inference is *one* of these; it isn't the point.
 
-### 🔒 On-prem private AI
-Regulated data that can't leave the building? The model and every token stay on
-your desk. Point Cursor, Continue, open-webui, or your own app at the local
-endpoint.
+### 🧩 Jobs bigger than any one Mac
+`ssi memory` exposes distributed shared memory across every node's RAM. Load a
+dataset, a graph, or a simulation state that's larger than any single machine and
+process it as if it were local — MOESI coherence keeps it consistent.
 
 ### 🏗️ Burst compute without a cloud bill
 `ssi run --mode max-resources ./job` spreads heavy batch work — rendering,
-simulation, fine-tuning — across every idle Mac. Pay nothing per hour.
+simulation, builds, fine-tuning, video encodes — across every idle Mac you own.
+Pay nothing per hour; use the hardware you already bought.
+
+### 🖥️ A render / sim farm from the Macs on your desk
+Point a queue at the pool. mac-ssi places each task on the node with the right
+free GPU / cores / RAM, by locality, so data doesn't bounce across the wire.
 
 ### ⚡ Energy-aware scheduling
-mac-ssi meters joules per node (and per token). `--mode energy` runs work where
-it costs the least power. Apple Silicon already wins on perf/watt; the cluster
-compounds it.
+Joules are metered per node. `--mode energy` runs work where it costs the least
+power. Apple Silicon already wins on perf/watt; the pool compounds it.
 
-### 🧩 Aggregate memory for big data
-`ssi memory` exposes distributed shared memory across all nodes' RAM — load a
-dataset bigger than any one machine and process it as if it were local.
+### 🔗 Works over whatever you've got
+Thunderbolt 5 with RDMA is fastest, but mac-ssi also runs over plain Ethernet or
+shared Wi-Fi — the fabric adapts to the link. Start with Wi-Fi, add a cable later.
+
+### 🧠 Large-model inference (one example)
+Because GPU memory pools, a model too big for any single Mac runs across the
+cluster behind one OpenAI endpoint — see
+[`serve-openai.md`](serve-openai.md). Private, on-prem, no cloud.
 
 ---
 
-> **Honest scope.** mac-ssi's edge is *cluster-scale on Apple Silicon*: running
-> models and jobs **too big for one Mac** across many. For a model that fits on a
-> single machine, a single machine is faster — distribution only pays off when one
-> node isn't enough.
+> **Honest scope.** mac-ssi's edge is making *one big machine out of many* —
+> for work that doesn't fit on a single Mac. For a job that fits comfortably on
+> one machine, one machine is faster; distribution pays off when one node isn't
+> enough.

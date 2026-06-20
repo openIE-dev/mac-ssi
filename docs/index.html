@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>mac-ssi — turn your Macs into one giant computer</title>
-<meta name="description" content="Pool the CPU, GPU, Neural Engine, RAM and storage of every Mac you own over Thunderbolt 5, and run AI models too big for any single machine — behind one OpenAI-compatible endpoint." />
-<meta property="og:title" content="mac-ssi — turn your Macs into one giant computer" />
-<meta property="og:description" content="Run frontier AI on the Macs you already own. One endpoint, every Mac, no model too big." />
+<title>mac-ssi — turn your Macs into one computer</title>
+<meta name="description" content="A Single System Image for Apple Silicon: fuse the CPU, GPU, Neural Engine, memory and storage of every Mac you own into one compute fabric — over Thunderbolt 5, Ethernet or Wi-Fi — and run any workload across all of them, unchanged." />
+<meta property="og:title" content="mac-ssi — turn your Macs into one computer" />
+<meta property="og:description" content="Pool every Mac you own into one compute fabric. Run anything across all of them. TB5, Ethernet, or Wi-Fi." />
 <meta property="og:image" content="assets/hero.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" href="assets/logo.svg" />
@@ -24,7 +24,6 @@
   a{color:var(--blue);text-decoration:none}
   .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
   .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-  /* nav */
   nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);background:rgba(10,13,20,.72);border-bottom:1px solid var(--line)}
   nav .wrap{display:flex;align-items:center;gap:20px;height:60px}
   nav img{width:28px;height:28px}
@@ -35,43 +34,39 @@
   .btn{display:inline-block;padding:10px 18px;border-radius:10px;font-weight:600;font-size:14px;border:1px solid var(--line)}
   .btn.primary{background:var(--grad);color:#fff;border:0}
   .btn.ghost{background:#0e1422;color:var(--fg)}
-  /* hero */
   header.hero{padding:90px 0 60px;text-align:center}
   .pill{display:inline-flex;gap:8px;align-items:center;padding:6px 14px;border:1px solid var(--line);border-radius:999px;background:#0e1422;color:var(--mut);font-size:13px;margin-bottom:26px}
   .dot{width:7px;height:7px;border-radius:50%;background:#37d67a;box-shadow:0 0 10px #37d67a}
   h1{font-size:clamp(38px,6vw,68px);line-height:1.04;letter-spacing:-.03em;margin:.1em 0 .25em;font-weight:800}
-  .sub{font-size:clamp(17px,2.2vw,21px);color:var(--mut);max-width:720px;margin:0 auto 34px}
+  .sub{font-size:clamp(17px,2.2vw,21px);color:var(--mut);max-width:740px;margin:0 auto 34px}
   .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
   .hero-img{margin:54px auto 0;max-width:920px;border-radius:16px;border:1px solid var(--line);box-shadow:0 40px 120px -40px #000;display:block;width:100%}
-  /* stat bar */
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:64px 0}
   .stat{background:var(--bg2);padding:26px 18px;text-align:center}
-  .stat b{display:block;font-size:30px;font-weight:800;letter-spacing:-.02em}
+  .stat b{display:block;font-size:28px;font-weight:800;letter-spacing:-.02em}
   .stat span{color:var(--dim);font-size:13px}
-  /* sections */
   section{padding:64px 0}
   .eyebrow{color:var(--violet);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
   h2{font-size:clamp(28px,4vw,40px);letter-spacing:-.02em;margin:.2em 0 .4em;font-weight:800}
-  .lead{color:var(--mut);font-size:18px;max-width:680px}
-  /* code */
+  .lead{color:var(--mut);font-size:18px;max-width:700px}
   .term{background:#0b0f1a;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:22px 0;text-align:left}
   .term .bar{display:flex;gap:7px;padding:12px 14px;border-bottom:1px solid var(--line)}
   .term .bar i{width:11px;height:11px;border-radius:50%;display:inline-block}
   .term .bar i:nth-child(1){background:#ff5f57}.term .bar i:nth-child(2){background:#febc2e}.term .bar i:nth-child(3){background:#28c840}
   pre{margin:0;padding:18px 20px;overflow:auto;font-family:var(--mono);font-size:13.5px;line-height:1.7;color:#cfe0ff}
   pre .c{color:var(--dim)} pre .g{color:#7ee787} pre .k{color:#9a6bff} pre .s{color:#79c0ff} pre .o{color:#ffa657}
-  /* features */
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
   .feat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px}
   .feat .ic{font-size:22px}
   .feat h3{margin:.6em 0 .3em;font-size:17px}
   .feat p{color:var(--mut);font-size:14.5px;margin:0}
-  /* table */
   table{width:100%;border-collapse:collapse;margin-top:24px;font-size:14.5px}
-  th,td{text-align:left;padding:13px 14px;border-bottom:1px solid var(--line)}
+  th,td{text-align:left;padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top}
   th{color:var(--dim);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
   td code{font-family:var(--mono);color:#7ee787;background:#0e1422;padding:2px 7px;border-radius:6px;font-size:13px}
-  /* install */
+  .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+  .chip{border:1px solid var(--line);background:#0e1422;border-radius:999px;padding:7px 16px;font-size:13.5px;color:var(--mut)}
+  .chip b{color:var(--fg)}
   .install{background:linear-gradient(180deg,#101627,#0c111d);border:1px solid var(--line);border-radius:20px;padding:44px;text-align:center;margin-top:30px}
   .note{color:var(--dim);font-size:13px;margin-top:18px}
   footer{border-top:1px solid var(--line);padding:40px 0;color:var(--dim);font-size:14px}
@@ -85,8 +80,8 @@
 <nav><div class="wrap">
   <img src="assets/logo.svg" alt=""/><span class="brand">mac-ssi</span>
   <div class="links">
+    <a href="#run">Run</a>
     <a href="#watch">Watch</a>
-    <a href="#flagship">Serve</a>
     <a href="#features">Features</a>
     <a href="#how">How it works</a>
     <a href="#api">API</a>
@@ -96,25 +91,42 @@
 </div></nav>
 
 <header class="hero"><div class="wrap">
-  <span class="pill"><span class="dot"></span> 608 GB of pooled Mac RAM, one endpoint</span>
-  <h1>Turn the Macs you own<br/>into <span class="grad">one giant computer</span>.</h1>
-  <p class="sub">mac-ssi pools the CPU, GPU, Neural Engine, RAM and storage of every Mac on your desk over Thunderbolt&nbsp;5 — and runs AI models too big for any single machine, behind one OpenAI-compatible endpoint.</p>
+  <span class="pill"><span class="dot"></span> One Single System Image across all your Macs</span>
+  <h1>Turn the Macs you own<br/>into <span class="grad">one computer</span>.</h1>
+  <p class="sub">mac-ssi fuses the CPU, GPU, Neural Engine, memory and storage of every Mac you own into a single compute fabric — over Thunderbolt&nbsp;5, Ethernet, or Wi-Fi. Run <em>any</em> workload across all of them, unchanged.</p>
   <div class="cta">
     <a class="btn primary" href="#install">Download for macOS</a>
-    <a class="btn ghost" href="#flagship">See it serve a 550B model →</a>
+    <a class="btn ghost" href="#run">Run a workload across the pool →</a>
   </div>
-  <img class="hero-img" src="assets/hero.png" alt="mac-ssi cluster" onerror="this.style.display='none'"/>
+  <img class="hero-img" src="assets/hero.png" alt="mac-ssi compute fabric" onerror="this.style.display='none'"/>
 </div></header>
 
 <div class="wrap">
   <div class="stats">
     <div class="stat"><b class="grad">608&nbsp;GB</b><span>unified RAM, 4 Macs</span></div>
-    <div class="stat"><b class="grad">550B</b><span>params, no single Mac holds it</span></div>
-    <div class="stat"><b class="grad">1&nbsp;API</b><span>OpenAI-compatible endpoint</span></div>
-    <div class="stat"><b class="grad">0.06</b><span>joules / token</span></div>
+    <div class="stat"><b class="grad">1&nbsp;PID</b><span>one process, every node</span></div>
+    <div class="stat"><b class="grad">TB5·LAN·Wi-Fi</b><span>any link works</span></div>
+    <div class="stat"><b class="grad">10–100×</b><span>lower cross-node latency</span></div>
   </div>
 </div>
 
+<section id="run"><div class="wrap">
+  <span class="eyebrow">The whole point</span>
+  <h2>Run <span class="grad">anything</span> across the pool.</h2>
+  <p class="lead">You own more Macs than you use at once. mac-ssi makes them act as one machine — memory spans every node's RAM, compute lands on whichever Mac has idle cores, GPU or ANE, a job appears as a single PID. Unmodified software just sees a bigger computer.</p>
+  <div class="term">
+    <div class="bar"><i></i><i></i><i></i></div>
+<pre><span class="c"># run any binary on the best node — by free CPU/GPU/RAM, locality, or energy</span>
+<span class="g">$</span> <span class="k">ssi run</span> ./render_batch <span class="o">--gpu --min-mem</span> 65536
+
+<span class="c"># place work where it costs the least power</span>
+<span class="g">$</span> <span class="k">ssi run</span> <span class="o">--mode</span> energy ./nightly_job
+
+<span class="c"># one process table across every Mac</span>
+<span class="g">$</span> <span class="k">ssi ps</span></pre>
+  </div>
+  <p class="note">Rendering, simulation, builds, data processing, batch compute, training, inference — anything bottlenecked by a single machine gets the whole pool.</p>
+</div></section>
 
 <section id="watch"><div class="wrap" style="text-align:center">
   <span class="eyebrow">90-second tour</span>
@@ -123,49 +135,45 @@
     <source src="assets/tutorial.mp4" type="video/mp4"/>
   </video>
 </div></section>
-<section id="flagship"><div class="wrap">
-  <span class="eyebrow">The flagship</span>
-  <h2>Run a model no single Mac can hold.</h2>
-  <p class="lead">One command shards a frontier model across every Mac's GPU memory and serves it as a single OpenAI endpoint. Point any client at it — it just sees one big model.</p>
-  <div class="term">
-    <div class="bar"><i></i><i></i><i></i></div>
-<pre><span class="c"># serve a frontier model across the whole cluster</span>
-<span class="g">$</span> <span class="k">ssi serve</span> nemotron-ultra-550b <span class="o">--port</span> 8080
-
-<span class="c"># it's just the OpenAI API — point any tool at it</span>
-<span class="g">$</span> curl http://localhost:8080/v1/chat/completions \
-    -d <span class="s">'{"messages":[{"role":"user","content":"Why is the sky blue?"}]}'</span></pre>
-  </div>
-  <div class="term">
-    <div class="bar"><i></i><i></i><i></i></div>
-<pre><span class="k">from</span> openai <span class="k">import</span> OpenAI
-client = OpenAI(base_url=<span class="s">"http://localhost:8080/v1"</span>, api_key=<span class="s">"local"</span>)
-print(client.chat.completions.create(
-    model=<span class="s">"ultra-550b"</span>,
-    messages=[{<span class="s">"role"</span>:<span class="s">"user"</span>,<span class="s">"content"</span>:<span class="s">"What can a cluster of Macs do that one can't?"</span>}],
-).choices[0].message.content)</pre>
-  </div>
-  <p class="note">Proven on hardware: a 120B model distributed across 3 Macs at ~22 tok/s through one endpoint. Built for 400–600B-class models on pooled cluster RAM.</p>
-</div></section>
 
 <section id="features"><div class="wrap">
   <span class="eyebrow">One machine, made of many</span>
-  <h2>The cluster <span class="grad">is</span> the computer.</h2>
+  <h2>A real single system image.</h2>
   <div class="grid">
-    <div class="feat"><div class="ic">🧠</div><h3>Aggregate everything</h3><p>RAM spans every node, GPU work dispatches to idle cores, a process appears as one PID. No distributed-programming model.</p></div>
-    <div class="feat"><div class="ic">⚡</div><h3>Thunderbolt 5 + RDMA</h3><p>10 GB/s symmetric per link with low-latency RDMA. Predictive prefetch, write coalescing, and MOESI coherence cut cross-node latency 10–100×.</p></div>
-    <div class="feat"><div class="ic">🔌</div><h3>OpenAI-compatible</h3><p><code>ssi serve</code> exposes a drop-in <code>/v1</code> endpoint. Cursor, Continue, LangChain, open-webui — all work unchanged.</p></div>
-    <div class="feat"><div class="ic">🔒</div><h3>Private by default</h3><p>Model and tokens never leave your desk. On-prem AI for regulated data, no cloud, no per-token bill.</p></div>
-    <div class="feat"><div class="ic">🌱</div><h3>Energy-aware</h3><p>Joules metered per node and per token. <code>--mode energy</code> runs work where it costs the least power.</p></div>
-    <div class="feat"><div class="ic">🛠️</div><h3>Run anything</h3><p><code>ssi run ./job</code> places any binary on the best Mac by GPU/ANE/RAM/energy — <code>ssh</code> for your whole cluster, with a scheduler.</p></div>
+    <div class="feat"><div class="ic">🧠</div><h3>Aggregate everything</h3><p>CPU, GPU, Neural Engine, RAM and storage pooled across nodes. One PID, one memory space, one filesystem — no distributed-programming model.</p></div>
+    <div class="feat"><div class="ic">🔗</div><h3>Any link</h3><p>Thunderbolt&nbsp;5 with RDMA for max throughput, plain Ethernet, or just shared Wi-Fi. The fabric adapts to whatever connects your Macs.</p></div>
+    <div class="feat"><div class="ic">🧩</div><h3>Distributed shared memory</h3><p>Allocate across the pool's combined RAM with MOESI coherence and per-region consistency. Load data bigger than any one Mac.</p></div>
+    <div class="feat"><div class="ic">📍</div><h3>Locality-aware scheduling</h3><p>Predictive prefetch, write coalescing, tiered hot/cold memory, and run-where-the-data-lives placement cut cross-node latency 10–100×.</p></div>
+    <div class="feat"><div class="ic">🌱</div><h3>Energy-aware</h3><p>Joules metered per node. <code>--mode energy</code> runs work where it costs the least power — Apple Silicon's perf/watt, pooled.</p></div>
+    <div class="feat"><div class="ic">🚀</div><h3>Unmodified software</h3><p>No MPI, no job manager, no rewrite. <code>ssi run ./anything</code> is <code>ssh</code> for your whole pool, with a scheduler.</p></div>
   </div>
 </div></section>
 
 <section id="how"><div class="wrap">
   <span class="eyebrow">How it works</span>
-  <h2>Closing the 250× bandwidth gap.</h2>
-  <p class="lead">Apple's on-die UltraFusion runs at 2.5 TB/s; the external Thunderbolt link at 10 GB/s. mac-ssi bridges that gap in software — and pipeline-shards each model so a slice of the layers lives on each node, with only ~tens of KB of activations crossing the fabric per token.</p>
-  <img class="hero-img" src="assets/architecture.svg" alt="architecture diagram" style="margin-top:30px" onerror="this.style.display='none'"/>
+  <h2>Closing the interconnect gap.</h2>
+  <p class="lead">Making separate machines act as one is bound by the link between them. Apple's on-die UltraFusion runs at 2.5&nbsp;TB/s; the wire between Macs is far slower — 10&nbsp;GB/s on Thunderbolt&nbsp;5, less on Ethernet or Wi-Fi. mac-ssi closes that gap in software so the pool behaves like one computer.</p>
+  <div class="chips">
+    <span class="chip"><b>Predictive</b> page prefetch</span>
+    <span class="chip"><b>Write</b> coalescing</span>
+    <span class="chip"><b>Tiered</b> hot/cold memory</span>
+    <span class="chip"><b>Locality</b> scheduling</span>
+    <span class="chip"><b>RDMA</b> buffer pooling</span>
+    <span class="chip"><b>LZ4</b> page compression</span>
+    <span class="chip"><b>MOESI</b> coherence</span>
+  </div>
+  <img class="hero-img" src="assets/architecture.svg" alt="single compute fabric" style="margin-top:34px" onerror="this.style.display='none'"/>
+</div></section>
+
+<section id="example"><div class="wrap">
+  <span class="eyebrow">One example workload</span>
+  <h2>Large-model inference, for free.</h2>
+  <p class="lead">Because the fabric pools GPU memory, a model too big for any single Mac just runs across the cluster — sharded automatically, served behind one OpenAI-compatible endpoint. It's <em>an</em> application of mac-ssi, not the point of it.</p>
+  <div class="term">
+    <div class="bar"><i></i><i></i><i></i></div>
+<pre><span class="g">$</span> <span class="k">ssi serve</span> some-large-model <span class="o">--port</span> 8080
+<span class="g">$</span> curl localhost:8080<span class="s">/v1/chat/completions</span> -d <span class="s">'{"messages":[...]}'</span>   <span class="c"># plain OpenAI API</span></pre>
+  </div>
 </div></section>
 
 <section id="api"><div class="wrap">
@@ -173,14 +181,13 @@ print(client.chat.completions.create(
   <h2>Everything is one <code style="font-size:.7em">ssi</code> command.</h2>
   <table>
     <tr><th>Command</th><th>What it does</th></tr>
-    <tr><td><code>ssi serve &lt;model&gt;</code></td><td>Distributed inference of a model bigger than one node → one OpenAI endpoint</td></tr>
-    <tr><td><code>ssi run ./workload</code></td><td>Run any binary on the best node, scheduled by GPU / ANE / RAM / energy</td></tr>
-    <tr><td><code>ssi status</code> · <code>nodes</code> · <code>resources</code></td><td>See the cluster as one machine</td></tr>
-    <tr><td><code>ssi topology</code></td><td>Fabric topology — the Thunderbolt links between nodes</td></tr>
+    <tr><td><code>ssi run ./workload</code></td><td>Run any binary on the best node, scheduled by CPU / GPU / ANE / RAM / locality / energy</td></tr>
+    <tr><td><code>ssi ps</code> · <code>kill</code></td><td>One process table across every Mac</td></tr>
+    <tr><td><code>ssi memory</code></td><td>Distributed shared memory across the pool's combined RAM</td></tr>
     <tr><td><code>ssi gpu</code> · <code>ane</code></td><td>Pool and dispatch to GPU / Neural Engine across nodes</td></tr>
-    <tr><td><code>ssi memory</code></td><td>Distributed shared memory across cluster RAM</td></tr>
     <tr><td><code>ssi fs</code></td><td>One virtual filesystem spanning every node's storage</td></tr>
-    <tr><td><code>ssi ps</code> · <code>kill</code></td><td>Manage processes cluster-wide</td></tr>
+    <tr><td><code>ssi status</code> · <code>nodes</code> · <code>resources</code> · <code>topology</code></td><td>See the pool — and the fabric links — as one machine</td></tr>
+    <tr><td><code>ssi serve &lt;model&gt;</code></td><td><em>example workload</em> — distributed inference → one OpenAI endpoint</td></tr>
   </table>
 </div></section>
 
@@ -188,17 +195,17 @@ print(client.chat.completions.create(
   <div class="install">
     <span class="eyebrow">Get started</span>
     <h2>Install on every Mac.</h2>
-    <div class="term" style="max-width:560px;margin:24px auto">
+    <div class="term" style="max-width:580px;margin:24px auto">
       <div class="bar"><i></i><i></i><i></i></div>
 <pre><span class="g">$</span> brew install --cask openie-dev/mac-ssi/mac-ssi
 <span class="g">$</span> <span class="k">ssi up</span>       <span class="c"># start the agent — peers auto-discover</span>
-<span class="g">$</span> <span class="k">ssi status</span>   <span class="c"># your cluster, as one machine</span></pre>
+<span class="g">$</span> <span class="k">ssi status</span>   <span class="c"># your pool, as one machine</span></pre>
     </div>
     <div class="cta">
       <a class="btn primary" href="https://github.com/openIE-dev/mac-ssi/releases/latest">Download .dmg</a>
       <a class="btn ghost" href="https://github.com/openIE-dev/mac-ssi">View on GitHub</a>
     </div>
-    <p class="note">Apple Silicon · macOS 26.2+ for TB5 RDMA (runs over Thunderbolt-IP on earlier) · direct TB5 cables for multi-node.</p>
+    <p class="note">Apple Silicon · connects over Thunderbolt 5 (RDMA), Ethernet, or Wi-Fi · macOS 26.2+ unlocks TB5 RDMA.</p>
   </div>
 </div></section>
 
