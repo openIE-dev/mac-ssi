@@ -1,0 +1,17 @@
+file 'frames2/f1.png'
+duration 8
+file 'frames2/f2.png'
+duration 10
+file 'frames2/f3.png'
+duration 8
+file 'frames2/f4.png'
+duration 7
+file 'frames2/f5.png'
+duration 11
+file 'frames2/f6.png'
+duration 8
+file 'frames2/f7.png'
+duration 9
+file 'frames2/f8.png'
+duration 6
+file 'frames2/f8.png'
